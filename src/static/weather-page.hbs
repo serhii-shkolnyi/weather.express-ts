@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="global-static.css">
+    <title>Login</title>
+</head>
+<body class="wrapper">
+<h1 class="title">Sign in</h1>
+<form class="form" action="/weather" method="post">
+    <label>Оберіть своє місто якщо Ви з України
+        <br>
+        <select id="ua">
+            <option disabled selected>Оберіть своє місто якщо Ви з України</option>
+            {{#each cityArray}}
+                <option value={{this.city}}>{{this.city}} - {{admin_name}}</option>
+            {{/each}}
+
+        </select>
+    </label>
+</form>
+<br>
+<form class="form" action="/weather" method="post">
+    <label> Enter your city
+        <input class="input" type="text" name="city" placeholder="Enter your city">
+        <input class="input btn" type="submit" value="submit">
+    </label>
+</form>
+
+<br>
+<form class="form" action="/weather" method="post">
+    <label> Enter your Latitude and Longitude
+        <input class="input" type="text" name="latitude" placeholder="Enter your Latitude">
+        <input class="input" type="text" name="longitude" placeholder="Enter your Longitude">
+        <input class="input btn" type="submit" value="submit">
+    </label>
+</form>
+
+
+<script>
+
+</script>
+</body>
+</html>
