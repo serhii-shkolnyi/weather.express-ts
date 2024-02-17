@@ -18,6 +18,8 @@ app.set("views", pathConstant.staticPath);
 
 app.use(apiRouter);
 
+// let errorStateRender = "";
+
 app.use(
   "*",
   (err: ApiError, req: Request, res: Response, next: NextFunction) => {
