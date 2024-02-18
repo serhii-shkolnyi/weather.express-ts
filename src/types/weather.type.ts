@@ -88,3 +88,16 @@ export interface CurrentWeatherSys {
   sunrise: number;
   sunset: number;
 }
+
+export interface IForecastData {
+  dataForecast: string;
+  tempForecast: number;
+  weather: Partial<Weather>[];
+}
+
+export interface IUniversal {
+  dataToday: string;
+  temperature: number;
+  feelsLike: number;
+  forecast: IForecastData;
+}

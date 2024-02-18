@@ -209,9 +209,9 @@
                 <div class="fiveForecast">
                     <div class="forecast30Left">{{this.dataForecast}}</div>
                     <div class="forecast20">{{#each weather}}
-                        <img src="http://openweathermap.org/img/w/{{this.icoForecast}}.png" alt="icon">{{/each}}</div>
+                        <img src="http://openweathermap.org/img/w/{{this.icon}}.png" alt="icon">{{/each}}</div>
                     <div class="forecast20">{{this.tempForecast}}&#8451</div>
-                    <div class="forecast30Right">{{#each weather}}{{this.descriptionForecast}}{{/each}}</div>
+                    <div class="forecast30Right">{{#each weather}}{{this.description}}{{/each}}</div>
                 </div>
             {{/each}}
         </div>

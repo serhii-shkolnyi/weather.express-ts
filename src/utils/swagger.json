@@ -2,27 +2,33 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "title": "WEATHER EXPRESS"
+    "title": "Weather Express Api"
   },
+  "tags": [
+    {
+      "name": "weather",
+      "description": "Get current weather details"
+    }
+  ],
   "paths": {
-    "/weather": {
-      "get": {
-        "tags": ["User"],
-        "summary": "GET ALL USERS",
+    "/weather.json": {
+      "post": {
+        "tags": ["weather"],
+        "summary": "Call current weather data for one location",
         "parameters": [
           {
-            "name": "age",
-            "in": "query",
-            "description": "user age",
-            "required": false,
-            "type": "number"
+            "name": "city",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/city"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "received all users",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/response"
             }
           }
         }
@@ -30,16 +36,161 @@
     }
   },
   "definitions": {
-    "User": {
+    "city": {
       "properties": {
-        "email": {
+        "city": {
+          "type": "string"
+        }
+      }
+    },
+    "response": {
+      "properties": {
+        "coord": {
+          "type": "object",
+          "properties": {
+            "lon": {
+              "type": "number"
+            },
+            "lat": {
+              "type": "number"
+            }
+          }
+        },
+        "weather": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "main": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "base": {
           "type": "string"
         },
-        "password": {
+        "main": {
+          "type": "object",
+          "properties": {
+            "temp": {
+              "type": "number"
+            },
+            "feels_like": {
+              "type": "number"
+            },
+            "pressure": {
+              "type": "number"
+            },
+            "humidity": {
+              "type": "number"
+            },
+            "temp_min": {
+              "type": "number"
+            },
+            "temp_max": {
+              "type": "number"
+            },
+            "sea_level": {
+              "type": "number"
+            },
+            "grnd_level": {
+              "type": "number"
+            }
+          }
+        },
+        "visibility": {
+          "type": "number"
+        },
+        "dt": {
+          "type": "number"
+        },
+        "timezone": {
+          "type": "number"
+        },
+        "id": {
+          "type": "number"
+        },
+        "cod": {
+          "type": "number"
+        },
+        "name": {
           "type": "string"
         },
-        "age": {
-          "type": "integer"
+        "wind": {
+          "type": "object",
+          "properties": {
+            "speed": {
+              "type": "number"
+            },
+            "deg": {
+              "type": "number"
+            },
+            "gust": {
+              "type": "number"
+            }
+          }
+        },
+        "clouds": {
+          "type": "object",
+          "properties": {
+            "all": {
+              "type": "number"
+            }
+          }
+        },
+        "rain": {
+          "type": "object",
+          "properties": {
+            "1h": {
+              "type": "number"
+            },
+            "3h": {
+              "type": "number"
+            }
+          }
+        },
+        "snow": {
+          "type": "object",
+          "properties": {
+            "1h": {
+              "type": "number"
+            },
+            "3h": {
+              "type": "number"
+            }
+          }
+        },
+        "sys": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "number"
+            },
+            "id": {
+              "type": "number"
+            },
+            "message": {
+              "type": "number"
+            },
+            "country": {
+              "type": "string"
+            },
+            "sunrise": {
+              "type": "number"
+            },
+            "sunset": {
+              "type": "number"
+            }
+          }
         }
       }
     }
