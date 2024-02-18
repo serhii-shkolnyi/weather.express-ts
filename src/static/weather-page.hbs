@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        body{
+        body {
             margin: 0 auto;
             padding: 0;
             box-sizing: border-box;
@@ -15,6 +15,7 @@
             font-size: 16px;
             height: 100svh;
         }
+
         .wrapper {
             width: 1200px;
             display: flex;
@@ -38,20 +39,24 @@
             display: flex;
             flex-direction: column;
         }
-        .flex{
+
+        .flex {
             display: flex;
             align-items: center;
             justify-content: space-around;
         }
-        .flexCenter{
+
+        .flexCenter {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .left{
+
+        .left {
             width: 50%;
         }
-        .right{
+
+        .right {
             width: 50%;
             font-size: 14px;
             border-left: 1px solid #eb6e4b;
@@ -61,13 +66,16 @@
             flex-direction: column;
             justify-content: space-around;
         }
-        .logo{
+
+        .logo {
             height: 100px;
         }
-        .form{
+
+        .form {
             margin: 5px 0;
         }
-        .input{
+
+        .input {
             padding: 10px 15px;
             border-radius: 5px;
             border: none;
@@ -75,10 +83,12 @@
             width: 400px;
             box-shadow: 0 0 1px darkgray;
         }
-        .lat{
+
+        .lat {
             width: 183px;
         }
-        .btn{
+
+        .btn {
             width: 100px;
             border-radius: 0 5px 5px 0;
             margin-left: -10px;
@@ -86,50 +96,65 @@
             color: #fff;
             cursor: pointer;
         }
+
         .data {
             color: #eb6e4b;
         }
-        .titleWeather{
+
+        .titleWeather {
             font-size: 25px;
             font-weight: bolder;
             padding-bottom: 15px;
         }
-        .imgBig{
+
+        .imgBig {
             height: 70px;
         }
-        .temperature{
+
+        .temperature {
             font-size: 35px;
             font-weight: bolder;
         }
-        .forecast{
+
+        .forecast {
             margin-top: 25px;
         }
-        .fiveForecast{
+
+        .fiveForecast {
             width: 90%;
             margin: 0 auto;
             display: flex;
             align-items: center;
             box-shadow: 0 1px 0 darkgray;
         }
-        .forecast30Left{
+
+        .forecast30Left {
             width: 30%;
             display: flex;
             align-items: center;
             justify-content: start;
             padding: 5px 0 5px 10px;
         }
-        .forecast30Right{
+
+        .forecast30Right {
             width: 30%;
             display: flex;
             align-items: center;
             justify-content: end;
             padding: 5px 10px 5px 0;
         }
-        .forecast20{
+
+        .forecast20 {
             width: 20%;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .error {
+            color: #eb6e4b;
+            font-size: 15px;
+            padding-left: 140px;
         }
     </style>
     <title>Login</title>
@@ -145,7 +170,6 @@
             <input class="input btn" type="submit" value="search">
         </label>
     </form>
-
     <br>
     <form class="form" action="/weather" method="post">
         <label>
@@ -154,40 +178,44 @@
             <input class="input btn" type="submit" value="search">
         </label>
     </form>
+    {{#if errorState}}
+        <p class="error">-----  {{errorState}}  -----</p>
+    {{/if}}
 </div>
 
 {{#if weatherToday}}
 
-        <div class="setWeather">
-            <div class="flex">
-                <div class="left">
-                    <div class="titleWeather">{{weatherToday.name}}, {{weatherToday.sys.country}}</div>
-                    <div class="flexCenter">
-                        {{#each weatherToday.weather}}
-                            <img class="imgBig" src="http://openweathermap.org/img/w/{{this.icon}}.png" alt="icon">
-                        {{/each}}
-                        <div class="temperature">{{temperature}}&#8451</div>
-                    </div>
-                    <p>Feels like {{feelsLike}}&#8451 ( {{#each weatherToday.weather}}{{this.description}}{{/each}} )</p>
+    <div class="setWeather">
+        <div class="flex">
+            <div class="left">
+                <div class="titleWeather">{{weatherToday.name}}, {{weatherToday.sys.country}}</div>
+                <div class="flexCenter">
+                    {{#each weatherToday.weather}}
+                        <img class="imgBig" src="http://openweathermap.org/img/w/{{this.icon}}.png" alt="icon">
+                    {{/each}}
+                    <div class="temperature">{{temperature}}&#8451</div>
                 </div>
-                <div class="right">
-                    <div><b>Wind speed: </b>{{weatherToday.wind.speed}} m/s ( gust: {{weatherToday.wind.gust}} m/s )</div>
-                    <div><b>Humidity: </b>{{weatherToday.main.humidity}} %</div>
-                    <div><b>Pressure: </b>{{weatherToday.main.pressure}} hPa</div>
-                </div>
+                <p>Feels like {{feelsLike}}&#8451 ( {{#each weatherToday.weather}}{{this.description}}{{/each}} )</p>
             </div>
-            <div class="forecast">
-                <div class="titleWeather">5 day forecast</div>
-                {{#each forecast}}
-                    <div class="fiveForecast">
-                        <div class="forecast30Left">{{this.dataForecast}}</div>
-                        <div class="forecast20">{{#each weather}}<img src="http://openweathermap.org/img/w/{{this.icoForecast}}.png" alt="icon">{{/each}}</div>
-                        <div class="forecast20">{{this.tempForecast}}&#8451</div>
-                        <div class="forecast30Right">{{#each weather}}{{this.descriptionForecast}}{{/each}}</div>
-                    </div>
-                {{/each}}
+            <div class="right">
+                <div><b>Wind speed: </b>{{weatherToday.wind.speed}} m/s ( gust: {{weatherToday.wind.gust}} m/s )</div>
+                <div><b>Humidity: </b>{{weatherToday.main.humidity}} %</div>
+                <div><b>Pressure: </b>{{weatherToday.main.pressure}} hPa</div>
             </div>
         </div>
+        <div class="forecast">
+            <div class="titleWeather">5 day forecast</div>
+            {{#each forecast}}
+                <div class="fiveForecast">
+                    <div class="forecast30Left">{{this.dataForecast}}</div>
+                    <div class="forecast20">{{#each weather}}
+                        <img src="http://openweathermap.org/img/w/{{this.icoForecast}}.png" alt="icon">{{/each}}</div>
+                    <div class="forecast20">{{this.tempForecast}}&#8451</div>
+                    <div class="forecast30Right">{{#each weather}}{{this.descriptionForecast}}{{/each}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
 
 
 {{/if}}

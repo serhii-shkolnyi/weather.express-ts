@@ -5,6 +5,8 @@ import { NextFunction, Request, Response } from "express";
 import { weatherService } from "../services";
 
 dayjs.extend(utc);
+
+let errorState: string = "";
 class WeatherController {
   public async renderWeatherPage(
     req: Request,
@@ -13,7 +15,7 @@ class WeatherController {
   ): Promise<void> {
     try {
       const dataToday = dayjs(new Date()).format("MMM DD, hh:mma");
-      return res.render("weather-page", { dataToday });
+      return res.render("weather-page", { dataToday, errorState });
     } catch (e) {
       next(e);
     }
@@ -26,7 +28,7 @@ class WeatherController {
   ): Promise<void> {
     try {
       const body = req.body;
-      console.log(body);
+      errorState = "";
 
       if (body.hasOwnProperty("city")) {
         const { weatherToday, weatherFiveDay } =
@@ -59,13 +61,16 @@ class WeatherController {
             weather,
           });
         });
-
+        if (errorState === "city not found") {
+          console.log("kkkkkkkkkkkkkkkkkkkkkkk");
+        }
         res.render("weather-page", {
           dataToday,
           temperature,
           feelsLike,
           weatherToday,
           forecast,
+          errorState,
         });
       } else if (body.hasOwnProperty("latitude")) {
         const { weatherToday, weatherFiveDay } =
@@ -108,10 +113,16 @@ class WeatherController {
           feelsLike,
           weatherToday,
           forecast,
+          errorState,
         });
       }
     } catch (e) {
+      errorState = e.message;
       next(e);
+    }
+
+    if (errorState.length > 0) {
+      res.redirect("/weather");
     }
   }
 }
