@@ -15,3 +15,6 @@ Example Coordinate (Latitude and Longitude)
 Odessa: 46.482952, 30.712481 \
 Kyiv: 50.450001, 30.523333 \
 Lviv: 49.842957, 24.031111 
+
+## [GET] http:localhost:5005/swagger
+API documentation
